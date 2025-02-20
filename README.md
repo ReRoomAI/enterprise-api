@@ -2,14 +2,25 @@
 
 This document describes the ReRoom Enterprise API, which allows enterprise users to submit rendering requests, check their status, and retrieve the results. The base URL for all API endpoints is `https://reroom.ai`.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Authentication](#authentication)
+- [Rate Limits](#rate-limits)
+- [Endpoints](#endpoints)
+  - [Upload Image](#1-upload-image)
+  - [Submit Render Request](#2-submit-render-request)
+  - [Check Render Status](#3-check-render-status)
+- [Error Handling](#error-handling)
+
 ## Overview
 
 The Enterprise API provides endpoints for:
 
-- Uploading images for processing.
-- Submitting rendering requests with specific styles and creativity levels.
-- Checking the status of rendering requests.
-- Retrieving user account information (API key status).
+- Uploading images for processing (supports JPEG and PNG formats)
+- Submitting rendering requests with specific styles and creativity levels
+- Checking the status of rendering requests
+- Retrieving user account information (API key status)
 
 This API is designed for enterprise users who have been granted a unique API key. All requests _require_ authentication using this key.
 
@@ -23,6 +34,12 @@ Authorization: Bearer <your_enterprise_api_key>
 
 Replace `<your_enterprise_api_key>` with your actual API key. If the header is missing, malformed, or the key is invalid, the API will return a `401 Unauthorized` error.
 
+## Rate Limits
+
+- Maximum file size: 15MB per upload
+- Maximum concurrent renders: 10 per account
+- Request rate: 100 requests per minute
+
 ## Endpoints
 
 ### 1. Upload Image
@@ -30,8 +47,17 @@ Replace `<your_enterprise_api_key>` with your actual API key. If the header is m
 - **Endpoint:** `POST /api/enterprise/upload`
 - **Description:** Uploads an image to be used in a rendering request. This endpoint _does not_ initiate the rendering process; it only prepares the image for a subsequent render request.
 - **Headers:**
-  - `Content-Type`: `image/jpeg`, `image/jpg`, or `image/png` (case-insensitive). **This header is required.**
+  - `Content-Type`: `image/jpeg`, `image/jpg`, or `image/png` (case-insensitive). **Required**
 - **Request Body:** Raw image file data (binary). Do not send base64 encoded data.
+- **Supported Image Formats:**
+  - JPEG/JPG (recommended)
+  - PNG
+- **Image Requirements:**
+
+  - Minimum resolution: 512x512 pixels
+  - Maximum resolution: 4096x4096 pixels
+  - Aspect ratio: Between 4:3 and 16:9
+
 - **Response (Success - 200 OK):**
 
   ```json
@@ -45,21 +71,7 @@ Replace `<your_enterprise_api_key>` with your actual API key. If the header is m
 
 - **Response (Error):**
 
-  - **400 Bad Request:**
-    - Missing `Content-Type` header.
-    - Invalid `Content-Type`.
-    - Empty file.
-    - File size exceeds 15MB.
-    ```json
-    { "err": "<error_message>" }
-    ```
-  - **500 Internal Server Error:**
-    ```json
-    { "err": "<error_message>" }
-    ```
-    - Failed to generate a presigned URL.
-    - Network error or failure to upload to S3.
-    - Other internal errors.
+  - See [Error Handling](#error-handling) section
 
 - **Example:**
 
@@ -92,10 +104,10 @@ else:
 ### 2. Submit Render Request
 
 - **Endpoint:** `POST /api/enterprise/render`
-- **Description:** Submits a rendering request. This endpoint uses the `fileName` returned by the `/api/enterprise/upload` endpoint.
+- **Description:** Submits a rendering request using a previously uploaded image.
 - **Headers:**
-  - `Authorization`: `Bearer <your_enterprise_api_key>`
-  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer <your_enterprise_api_key>` **Required**
+  - `Content-Type`: `application/json` **Required**
 - **Request Body:**
 
   ```json
@@ -106,9 +118,20 @@ else:
   }
   ```
 
-  - `file_name`: (Required) The `fileName` returned by the `/api/enterprise/upload` endpoint. Must be a valid UUID v4 with a file extension.
-  - `style`: (Required) The desired rendering style. Must be one of the allowed values.
-  - `creativity`: (Required) A number between 0.5 and 1 (inclusive) representing the creativity level.
+  - `file_name`: (Required) The `fileName` returned by the upload endpoint
+  - `style`: (Required) The desired rendering style
+  - `creativity`: (Required) A number between 0.5 and 1
+    - 0.5: More conservative, closer to original
+    - 1.0: More creative, larger variations
+
+- **Available Styles:**
+
+  - `modern`: Contemporary minimalist design
+  - `nordic`: Scandinavian-inspired aesthetic
+  - `japandi`: Japanese-Scandinavian fusion
+  - `new-chinese`: Modern Chinese design
+  - `european`: Classic European elegance
+  - `american`: Contemporary American style
 
 - **Response (Success - 200 OK):**
 
@@ -289,3 +312,29 @@ if response.status_code == 200:
 else:
     print(f"Status check failed: {response.text}")
 ```
+
+## Error Handling
+
+All error responses follow this format:
+
+```json
+{
+  "err": "<error_message>"
+}
+```
+
+Common error codes:
+
+- **400 Bad Request**
+  - Invalid request parameters
+  - File size exceeds 15MB
+  - Unsupported image format
+  - Invalid image dimensions
+- **401 Unauthorized**
+  - Missing or invalid API key
+- **404 Not Found**
+  - Resource not found
+- **429 Too Many Requests**
+  - Rate limit exceeded
+- **500 Internal Server Error**
+  - Server-side processing error
