@@ -113,7 +113,7 @@ else:
   ```json
   {
     "file_name": "<uuid>.<ext>",
-    "style": "modern" | "nordic" | "japandi" | "new-chinese" | "european" | "american",
+    "style": "modern" | "nordic" | "new-chinese" | "european" ,
     "creativity": number
   }
   ```
