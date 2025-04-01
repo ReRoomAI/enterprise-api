@@ -132,6 +132,33 @@ else:
   - `new-chinese`: Modern Chinese design
   - `european`: Classic European elegance
   - `american`: Contemporary American style
+  - `minimalist-haven`: Minimalist and serene design
+  - `modern-fusion`: Sleek urban contemporary design
+  - `contemporary-elegance`: Clean modern elegant design
+  - `industrial-loft`: Urban warehouse-inspired design
+  - `bohemian-oasis`: Eclectic bohemian design
+  - `coastal-breeze`: Airy beach-inspired design
+  - `desert-retreat`: Warm southwestern design
+  - `mountain-escape`: Rustic alpine design
+  - `victorian-elegance`: Ornate classical design
+  - `art-deco-glamour`: Geometric luxurious design
+  - `mid-century-modern`: Retro functional design
+  - `french-country-charm`: Rustic provincial design
+  - `colonial-classic`: Traditional stately design
+  - `scandinavian-sanctuary`: Clean Nordic design
+  - `japanese-zen`: Minimalist traditional Japanese design
+  - `moroccan-mystique`: Exotic Middle Eastern design
+  - `mediterranean-retreat`: Sun-drenched coastal design
+  - `indian-exuberance`: Vibrant traditional Indian design
+  - `travelers-trove`: Eclectic worldly design
+  - `cyber-eclectic-fusion`: Futuristic urban design
+  - `neon-noir`: Dark high-tech design
+  - `techno-wonderland`: Vibrant futuristic design
+  - `retro-futurism`: Space-age nostalgic design
+  - `digital-zen`: High-tech minimalist design
+  - `rustic`: Traditional rustic design
+  - `vintage`: Classic vintage design
+  - `shabby-chic`: Elegant distressed design
 
 - **Response (Success - 200 OK):**
 
