@@ -173,7 +173,7 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 <details>
 <summary>Types</summary>
 
-| Type ID             | Description               |
+| Option              | Description               |
 | ------------------- | ------------------------- |
 | `no-type`           | No specific interior type |
 | `living-room`       | Living Room               |
@@ -211,42 +211,36 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 <details>
 <summary>Styles</summary>
 
-| Style ID                 | Description                            |
-| ------------------------ | -------------------------------------- |
-| `no-style`               | No style                               |
-| `modern`                 | Contemporary minimalist design         |
-| `nordic`                 | Scandinavian-inspired aesthetic        |
-| `japandi`                | Japanese-Scandinavian fusion           |
-| `new-chinese`            | Modern Chinese design                  |
-| `european`               | Classic European elegance              |
-| `american`               | Contemporary American style            |
-| `minimalist-haven`       | Minimalist and serene design           |
-| `modern-fusion`          | Sleek urban contemporary design        |
-| `contemporary-elegance`  | Clean modern elegant design            |
-| `industrial-loft`        | Urban warehouse-inspired design        |
-| `bohemian-oasis`         | Eclectic bohemian design               |
-| `coastal-breeze`         | Airy beach-inspired design             |
-| `desert-retreat`         | Warm southwestern design               |
-| `mountain-escape`        | Rustic alpine design                   |
-| `victorian-elegance`     | Ornate classical design                |
-| `art-deco-glamour`       | Geometric luxurious design             |
-| `mid-century-modern`     | Retro functional design                |
-| `french-country-charm`   | Rustic provincial design               |
-| `colonial-classic`       | Traditional stately design             |
-| `scandinavian-sanctuary` | Clean Nordic design                    |
-| `japanese-zen`           | Minimalist traditional Japanese design |
-| `moroccan-mystique`      | Exotic Middle Eastern design           |
-| `mediterranean-retreat`  | Sun-drenched coastal design            |
-| `indian-exuberance`      | Vibrant traditional Indian design      |
-| `travelers-trove`        | Eclectic worldly design                |
-| `cyber-eclectic-fusion`  | Futuristic urban design                |
-| `neon-noir`              | Dark high-tech design                  |
-| `techno-wonderland`      | Vibrant futuristic design              |
-| `retro-futurism`         | Space-age nostalgic design             |
-| `digital-zen`            | High-tech minimalist design            |
-| `rustic`                 | Traditional rustic design              |
-| `vintage`                | Classic vintage design                 |
-| `shabby-chic`            | Elegant distressed design              |
+| Option                   | Description            |
+| ------------------------ | ---------------------- |
+| `no-style`               | No Style               |
+| `minimalist-haven`       | Minimalist Haven       |
+| `modern-fusion`          | Modern Fusion          |
+| `contemporary-elegance`  | Contemporary Elegance  |
+| `industrial-loft`        | Industrial Loft        |
+| `bohemian-oasis`         | Bohemian Oasis         |
+| `coastal-breeze`         | Coastal Breeze         |
+| `desert-retreat`         | Desert Retreat         |
+| `mountain-escape`        | Mountain Escape        |
+| `victorian-elegance`     | Victorian Elegance     |
+| `art-deco-glamour`       | Art Deco Glamour       |
+| `mid-century-modern`     | Mid-Century Modern     |
+| `french-country-charm`   | French Country Charm   |
+| `colonial-classic`       | Colonial Classic       |
+| `scandinavian-sanctuary` | Scandinavian Sanctuary |
+| `japanese-zen`           | Japanese Zen           |
+| `moroccan-mystique`      | Moroccan Mystique      |
+| `mediterranean-retreat`  | Mediterranean Retreat  |
+| `indian-exuberance`      | Indian Exuberance      |
+| `travelers-trove`        | Traveler's Trove       |
+| `cyber-eclectic-fusion`  | Cyber Eclectic Fusion  |
+| `neon-noir`              | Neon Noir              |
+| `techno-wonderland`      | Techno Wonderland      |
+| `retro-futurism`         | Retro Futurism         |
+| `digital-zen`            | Digital Zen            |
+| `rustic`                 | Rustic                 |
+| `vintage`                | Vintage                |
+| `shabby-chic`            | Shabby Chic            |
 
 </details>
 
@@ -263,7 +257,7 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 </details>
 
 <details>
-<summary>Seasons</summary>
+<summary>Season</summary>
 
 | Option   | Description                      |
 | -------- | -------------------------------- |
@@ -393,7 +387,7 @@ Use these parameters when specifying `field=exterior` in the query string.
 <details>
 <summary>Types</summary>
 
-| Type ID               | Description               |
+| Option                | Description               |
 | --------------------- | ------------------------- |
 | `no-type`             | No specific building type |
 | `single-family-home`  | Single Family Home        |
@@ -430,42 +424,63 @@ Use these parameters when specifying `field=exterior` in the query string.
 <details>
 <summary>Styles</summary>
 
-| Style ID                 | Description                            |
-| ------------------------ | -------------------------------------- |
-| `no-style`               | No style                               |
-| `modern`                 | Contemporary minimalist design         |
-| `nordic`                 | Scandinavian-inspired aesthetic        |
-| `japandi`                | Japanese-Scandinavian fusion           |
-| `new-chinese`            | Modern Chinese design                  |
-| `european`               | Classic European elegance              |
-| `american`               | Contemporary American style            |
-| `minimalist-haven`       | Minimalist and serene design           |
-| `modern-fusion`          | Sleek urban contemporary design        |
-| `contemporary-elegance`  | Clean modern elegant design            |
-| `industrial-loft`        | Urban warehouse-inspired design        |
-| `bohemian-oasis`         | Eclectic bohemian design               |
-| `coastal-breeze`         | Airy beach-inspired design             |
-| `desert-retreat`         | Warm southwestern design               |
-| `mountain-escape`        | Rustic alpine design                   |
-| `victorian-elegance`     | Ornate classical design                |
-| `art-deco-glamour`       | Geometric luxurious design             |
-| `mid-century-modern`     | Retro functional design                |
-| `french-country-charm`   | Rustic provincial design               |
-| `colonial-classic`       | Traditional stately design             |
-| `scandinavian-sanctuary` | Clean Nordic design                    |
-| `japanese-zen`           | Minimalist traditional Japanese design |
-| `moroccan-mystique`      | Exotic Middle Eastern design           |
-| `mediterranean-retreat`  | Sun-drenched coastal design            |
-| `indian-exuberance`      | Vibrant traditional Indian design      |
-| `travelers-trove`        | Eclectic worldly design                |
-| `cyber-eclectic-fusion`  | Futuristic urban design                |
-| `neon-noir`              | Dark high-tech design                  |
-| `techno-wonderland`      | Vibrant futuristic design              |
-| `retro-futurism`         | Space-age nostalgic design             |
-| `digital-zen`            | High-tech minimalist design            |
-| `rustic`                 | Traditional rustic design              |
-| `vintage`                | Classic vintage design                 |
-| `shabby-chic`            | Elegant distressed design              |
+| Option                       | Description                |
+| ---------------------------- | -------------------------- |
+| `no-style`                   | No Style                   |
+| `sleek-international`        | Sleek International        |
+| `eco-futurism`               | Eco Futurism               |
+| `high-tech`                  | High Tech                  |
+| `biomorphic`                 | Biomorphic                 |
+| `neo-futurism`               | Neo Futurism               |
+| `smart-city`                 | Smart City                 |
+| `space-colony`               | Space Colony               |
+| `glassy-minimalist`          | Minimalisme Verrier        |
+| `dynamic-parametric`         | Dynamic Parametric         |
+| `eco-friendly-sustainable`   | Eco-friendly Sustainable   |
+| `expressive-high-tech`       | Expressive High-tech       |
+| `warm-wooden-modern`         | Warm Wooden Modern         |
+| `cantilevered-contemporary`  | Cantilevered Contemporary  |
+| `warehouse-conversion`       | Warehouse Conversion       |
+| `factory-loft`               | Factory Loft               |
+| `steel-frame-vintage`        | Steel Frame Vintage        |
+| `industrial-chic-townhouse`  | Industrial Chic Townhouse  |
+| `repurposed-factory`         | Repurposed Factory         |
+| `industrial-farmhouse`       | Industrial Farmhouse       |
+| `enchanting-gothic`          | Enchanting Gothic          |
+| `opulent-baroque`            | Opulent Baroque            |
+| `earthy-vernacular`          | Earthy Vernacular          |
+| `graceful-moorish`           | Graceful Moorish           |
+| `whimsical-art-deco`         | Whimsical Art Deco         |
+| `intricate-tudor`            | Intricate Tudor            |
+| `bold-brutalist`             | Bold Brutalist             |
+| `playful-post-modern`        | Playful Post-Modern        |
+| `serene-scandinavian`        | Serene Scandinavian        |
+| `curvaceous-organic`         | Curvaceous Organic         |
+| `dramatic-deconstructivist`  | Dramatic Deconstructivist  |
+| `romanesque-revival`         | Romanesque Revival         |
+| `spanish-revival`            | Spanish Revival            |
+| `colonial-revival`           | Colonial Revival           |
+| `gothic-revival`             | Gothic Revival             |
+| `art-nouveau-revival`        | Art Nouveau Revival        |
+| `neogothic-revival`          | Neogothic Revival          |
+| `adobe-pueblo`               | Adobe Pueblo               |
+| `new-england-cottage`        | New England Cottage        |
+| `tropical-bamboo`            | Tropical Bamboo            |
+| `mediterranean-village`      | Mediterranean Village      |
+| `african-mud-hut`            | African Mud Hut            |
+| `scandinavian-log-cabin`     | Scandinavian Log Cabin     |
+| `ancient-egyptian`           | Ancient Egyptian           |
+| `greek-classical`            | Greek Classical            |
+| `roman-imperial`             | Roman Imperial             |
+| `pre-columbian-mesoamerican` | Pre-Columbian Mesoamerican |
+| `ancient-chinese`            | Ancient Chinese            |
+| `ancient-indian`             | Ancient Indian             |
+| `islamic-moorish`            | Islamic Moorish            |
+| `islamic-ottoman`            | Islamic Ottoman            |
+| `islamic-persian`            | Islamic Persian            |
+| `islamic-mughal`             | Islamic Mughal             |
+| `islamic-fatimid`            | Islamic Fatimid            |
+| `islamic-seljuk`             | Islamic Seljuk             |
 
 </details>
 <details>
