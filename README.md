@@ -13,7 +13,8 @@ This document describes the ReRoom Enterprise API, which allows enterprise users
     - [Interior Rendering](#21-interior-rendering-parameters)
     - [Exterior Rendering](#22-exterior-rendering-parameters)
     - [Response for All Render Requests](#response-for-all-render-requests)
-  - [Check Render Status](#3-check-render-status)
+  - [Submit Upscale Request](#3-submit-upscale-request)
+  - [Check Render Status](#4-check-render-status)
 
 ## Overview
 
@@ -40,7 +41,6 @@ Replace `<your_enterprise_api_key>` with your actual API key. If the header is m
 
 - Maximum file size: 15MB per upload
 - Maximum concurrent renders: 10 per account
-- Request rate: 100 requests per minute
 
 ## Endpoints
 
@@ -89,10 +89,10 @@ Raw image file data (binary). Do not send base64 encoded data.
   { "err": "<error_message>" }
   ```
 
-  | Status Code | Possible Error Messages                                                                        |
-  | ----------- | ---------------------------------------------------------------------------------------------- |
-  | 400         | "Invalid file format", "JPEG and PNG files only", "Empty file", "Max file size: 15MB"          |
-  | 500         | "Upload failed. Try again later.", "Upload failed. Try again.", "Connection error. Try again." |
+  | Status Code | Possible Error Messages                                                               |
+  | ----------- | ------------------------------------------------------------------------------------- |
+  | 400         | "Invalid file format", "JPEG and PNG files only", "Empty file", "Max file size: 15MB" |
+  | 500         | "Upload failed. Try again.", "Connection error. Try again."                           |
 
 **Examples:**
 
@@ -628,6 +628,7 @@ else:
 ```
 
 - `render_id`: The unique ID of the rendering request. Use this ID to check render status.
+- Each render request produces 1 output image.
 
 **Error Responses:**
 
@@ -635,13 +636,103 @@ else:
 { "err": "<error_message>" }
 ```
 
-| Status Code | Possible Error Messages                                                           |
-| ----------- | --------------------------------------------------------------------------------- |
-| 400         | "Invalid request", "Invalid filename", "Pending job exists", "Not enough credits" |
-| 401         | "Unauthorized"                                                                    |
-| 500         | "Image upload failed"                                                             |
+| Status Code | Possible Error Messages                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
+| 401         | "Unauthorized"                                                                                    |
+| 500         | "Image upload failed"                                                                             |
 
-### 3. Check Render Status
+### 3. Submit Upscale Request
+
+**Endpoint:** `POST /api/enterprise/upscale`
+
+**Description:**  
+Submits an upscaling request for a previously uploaded image. This enhances the resolution and quality of the image. The upscaled image will have a dimension of 1536 pixels on its shortest side.
+
+**Headers:**
+
+- `Authorization`: `Bearer <your_enterprise_api_key>` **Required**
+- `Content-Type`: `application/json` **Required**
+
+**Request Body:**
+
+| Parameter   | Type   | Required | Description                                  | Constraints                           |
+| ----------- | ------ | -------- | -------------------------------------------- | ------------------------------------- |
+| `file_name` | string | Yes      | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+
+**Request Body Example:**
+
+```json
+{
+  "file_name": "<uuid>.<ext>"
+}
+```
+
+**Response:**
+
+- **Success (200 OK):**
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "render_id": "<render_id>"
+    }
+  }
+  ```
+
+  - `render_id`: The unique ID of the upscaling request. Use this ID to check the upscale status (via the same endpoint used for checking render status).
+  - Each upscale request produces 1 output image.
+
+- **Error Responses:**
+
+  ```json
+  { "err": "<error_message>" }
+  ```
+
+  | Status Code | Possible Error Messages                                                                           |
+  | ----------- | ------------------------------------------------------------------------------------------------- |
+  | 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
+  | 401         | "Unauthorized"                                                                                    |
+  | 500         | "Image upload failed"                                                                             |
+
+**Examples:**
+
+```bash
+curl -X POST \
+  'https://reroom.ai/api/enterprise/upscale' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "file_name": "<your_file_name>"
+  }'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/upscale"
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "file_name": "<your_file_name>"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+
+if response.status_code == 200:
+    data = response.json()
+    render_id = data["data"]["render_id"]
+    print(f"Upscale request submitted. Render ID: {render_id}")
+else:
+    print(f"Upscale request failed: {response.text}")
+```
+
+**Note:** The upscaling process consumes 4 credits per request. Use the same endpoint for checking render status (`GET /api/enterprise/render/<render_id>`) to check the status of upscaling requests.
+
+### 4. Check Render Status
 
 - **Endpoint:** `GET /api/enterprise/render/<render_id>`
 - **Description:** Checks the status of a rendering request.
