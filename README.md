@@ -171,7 +171,7 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 **Available Options for Interior Rendering:**
 
 <details>
-<summary>Types</summary>
+<summary>Type</summary>
 
 | Option              | Description               |
 | ------------------- | ------------------------- |
@@ -209,7 +209,7 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 </details>
 
 <details>
-<summary>Styles</summary>
+<summary>Style</summary>
 
 | Option                   | Description            |
 | ------------------------ | ---------------------- |
@@ -385,7 +385,7 @@ Use these parameters when specifying `field=exterior` in the query string.
 **Available Options for Exterior Rendering:**
 
 <details>
-<summary>Types</summary>
+<summary>Type</summary>
 
 | Option                | Description               |
 | --------------------- | ------------------------- |
@@ -422,7 +422,7 @@ Use these parameters when specifying `field=exterior` in the query string.
 </details>
 
 <details>
-<summary>Styles</summary>
+<summary>Style</summary>
 
 | Option                       | Description                |
 | ---------------------------- | -------------------------- |
@@ -521,7 +521,7 @@ Use these parameters when specifying `field=exterior` in the query string.
 </details>
 
 <details>
-<summary>Landscapes</summary>
+<summary>Landscape</summary>
 
 | Option        | Description                            |
 | ------------- | -------------------------------------- |
@@ -539,7 +539,7 @@ Use these parameters when specifying `field=exterior` in the query string.
 </details>
 
 <details>
-<summary>Materials</summary>
+<summary>Material</summary>
 
 | Option     | Description                    |
 | ---------- | ------------------------------ |
@@ -770,11 +770,7 @@ The response format varies based on the render type (interior or exterior). Both
   "prompt": "<prompt>",
   "room_id": "<room_id>",
   "status": "<status>",
-  "outputs": [
-    "<s3_url_1>",
-    "<s3_url_2>",
-    ...
-  ],
+  "outputs": ["<s3_url_1>"],
   "created_at": "<date>",
   "updated_at": "<date>"
 }
@@ -800,13 +796,27 @@ The response format varies based on the render type (interior or exterior). Both
   "prompt": "<prompt>",
   "room_id": "<room_id>",
   "status": "<status>",
-  "outputs": [
-    "<s3_url_1>",
-    "<s3_url_2>",
-    ...
-  ],
+  "outputs": ["<s3_url_1>"],
   "created_at": "<date>",
   "updated_at": "<date>"
+}
+```
+
+**Upscale Response Format:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "<render_id>",
+    "uid": "<user_id>",
+    "source": "<s3_url>",
+    "room_id": "<room_id>",
+    "status": "<status>",
+    "outputs": ["<s3_url_1>"],
+    "created_at": "<date>",
+    "updated_at": "<date>"
+  }
 }
 ```
 
