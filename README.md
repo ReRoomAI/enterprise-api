@@ -15,6 +15,7 @@ This document describes the ReRoom Enterprise API, which allows enterprise users
     - [Response for All Render Requests](#response-for-all-render-requests)
   - [Submit Upscale Request](#3-submit-upscale-request)
   - [Check Render Status](#4-check-render-status)
+  - [Get Credit Status](#5-get-credit-status)
 
 ## Overview
 
@@ -857,6 +858,82 @@ if response.status_code == 200:
     print(f"Render status: {status}")
     if status == "completed":
         print("Output URLs:", data["outputs"])
+else:
+    print(f"Status check failed: {response.text}")
+```
+
+### 5. Get Credit Status
+
+**Endpoint:** `GET /api/enterprise/status`
+
+**Description:**  
+Returns information about the current status of your enterprise account, including available credits, key information, and account status.
+
+**Headers:**
+
+- `Authorization`: `Bearer <your_enterprise_api_key>` **Required**
+
+**Response:**
+
+- **Success (200 OK):**
+
+  ```json
+  {
+    "_id": "<account_id>",
+    "uid": "<user_id>",
+    "key": "<api_key>",
+    "credits": -1,
+    "is_active": true,
+    "is_enterprise": true,
+    "created_at": "<date>",
+    "updated_at": "<date>"
+  }
+  ```
+
+  - `_id`: The unique identifier for the account record
+  - `uid`: The user identifier associated with the account
+  - `key`: The API key being used (same as provided in Authorization header)
+  - `credits`: Available credits (-1 indicates unlimited credits)
+  - `is_active`: Whether the API key is currently active
+  - `is_enterprise`: Whether the account has enterprise privileges
+  - `created_at`: When the account was created
+  - `updated_at`: When the account was last updated
+
+- **Error Responses:**
+
+  ```json
+  { "err": "<error_message>" }
+  ```
+
+  | Status Code | Possible Error Messages |
+  | ----------- | ----------------------- |
+  | 401         | "Unauthorized"          |
+  | 404         | "Account not found"     |
+
+**Examples:**
+
+```bash
+curl -X GET \
+  'https://reroom.ai/api/enterprise/status' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/status"
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>"
+}
+
+response = requests.get(url, headers=headers)
+
+if response.status_code == 200:
+    data = response.json()
+    credits = data["credits"]
+    is_active = data["is_active"]
+    print(f"Account status: {'Active' if is_active else 'Inactive'}")
+    print(f"Available credits: {'Unlimited' if credits == -1 else credits}")
 else:
     print(f"Status check failed: {response.text}")
 ```
