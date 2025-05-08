@@ -12,7 +12,11 @@ This document describes the ReRoom Enterprise API, which allows enterprise users
   - [Submit Render Request](#2-submit-render-request)
     - [Interior Rendering](#21-interior-rendering-parameters)
     - [Exterior Rendering](#22-exterior-rendering-parameters)
+    - [Sketch Rendering](#23-sketch-rendering-parameters)
     - [Response for All Render Requests](#response-for-all-render-requests)
+    - [Shared Field Options](#shared-field-options)
+      - [Interior Options](#interior-options)
+      - [Exterior Options](#exterior-options)
   - [Submit Upscale Request](#3-submit-upscale-request)
   - [Check Render Status](#4-check-render-status)
   - [Get Credit Status](#5-get-credit-status)
@@ -161,146 +165,13 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 
 | Parameter          | Type   | Required | Description                  | Constraints                                                                                               |
 | ------------------ | ------ | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `type`             | string | No       | The interior space type      | Must be one of the supported interior types. Defaults to "no-type" if not specified                       |
-| `style`            | string | No       | The desired rendering style  | Must be one of the supported styles. Defaults to "no-style" if not specified                              |
-| `daylight`         | string | No       | Time of day for lighting     | Must be one of the supported daylight options                                                             |
-| `season`           | string | No       | Season to be depicted        | Must be one of the supported seasons                                                                      |
-| `color`            | string | No       | Color palette                | Must be one of the supported color schemes                                                                |
+| `type`             | string | No       | The interior space type      | Must be one of the [supported interior types](#interior-type). Defaults to "no-type" if not specified     |
+| `style`            | string | No       | The desired rendering style  | Must be one of the [supported interior styles](#interior-style). Defaults to "no-style" if not specified  |
+| `daylight`         | string | No       | Time of day for lighting     | Must be one of the [supported daylight options](#daylight)                                                |
+| `season`           | string | No       | Season to be depicted        | Must be one of the [supported seasons](#season)                                                           |
+| `color`            | string | No       | Color palette                | Must be one of the [supported color schemes](#interior-color)                                             |
 | `prompt`           | string | No       | Additional text instructions | Free-form text                                                                                            |
 | `creativity_level` | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
-
-**Available Options for Interior Rendering:**
-
-<details>
-<summary>Type</summary>
-
-| Option              | Description               |
-| ------------------- | ------------------------- |
-| `no-type`           | No specific interior type |
-| `living-room`       | Living Room               |
-| `kitchen`           | Kitchen                   |
-| `bedroom`           | Bedroom                   |
-| `bathroom`          | Bathroom                  |
-| `attic`             | Attic                     |
-| `dining-room`       | Dining Room               |
-| `study-room`        | Study Room                |
-| `home-office`       | Home Office               |
-| `gaming-room`       | Gaming Room               |
-| `house-exterior`    | House Exterior            |
-| `outdoor-pool-area` | Outdoor Pool Area         |
-| `outdoor-patio`     | Outdoor Patio             |
-| `outdoor-garden`    | Outdoor Garden            |
-| `meeting-room`      | Meeting Room              |
-| `workshop`          | Workshop                  |
-| `fitness-gym`       | Fitness Gym               |
-| `coffee-shop`       | Coffee Shop               |
-| `clothing-store`    | Clothing Store            |
-| `walk-in-closet`    | Walk-in Closet            |
-| `toilet`            | Toilet                    |
-| `restaurant`        | Restaurant                |
-| `office`            | Office                    |
-| `coworking-space`   | Coworking Space           |
-| `hotel-lobby`       | Hotel Lobby               |
-| `hotel-room`        | Hotel Room                |
-| `hotel-bathroom`    | Hotel Bathroom            |
-| `exhibition-space`  | Exhibition Space          |
-| `onsen`             | Onsen                     |
-| `mudroom`           | Mudroom                   |
-
-</details>
-
-<details>
-<summary>Style</summary>
-
-| Option                   | Description            |
-| ------------------------ | ---------------------- |
-| `no-style`               | No Style               |
-| `minimalist-haven`       | Minimalist Haven       |
-| `modern-fusion`          | Modern Fusion          |
-| `contemporary-elegance`  | Contemporary Elegance  |
-| `industrial-loft`        | Industrial Loft        |
-| `bohemian-oasis`         | Bohemian Oasis         |
-| `coastal-breeze`         | Coastal Breeze         |
-| `desert-retreat`         | Desert Retreat         |
-| `mountain-escape`        | Mountain Escape        |
-| `victorian-elegance`     | Victorian Elegance     |
-| `art-deco-glamour`       | Art Deco Glamour       |
-| `mid-century-modern`     | Mid-Century Modern     |
-| `french-country-charm`   | French Country Charm   |
-| `colonial-classic`       | Colonial Classic       |
-| `scandinavian-sanctuary` | Scandinavian Sanctuary |
-| `japanese-zen`           | Japanese Zen           |
-| `moroccan-mystique`      | Moroccan Mystique      |
-| `mediterranean-retreat`  | Mediterranean Retreat  |
-| `indian-exuberance`      | Indian Exuberance      |
-| `travelers-trove`        | Traveler's Trove       |
-| `cyber-eclectic-fusion`  | Cyber Eclectic Fusion  |
-| `neon-noir`              | Neon Noir              |
-| `techno-wonderland`      | Techno Wonderland      |
-| `retro-futurism`         | Retro Futurism         |
-| `digital-zen`            | Digital Zen            |
-| `rustic`                 | Rustic                 |
-| `vintage`                | Vintage                |
-| `shabby-chic`            | Shabby Chic            |
-
-</details>
-
-<details>
-<summary>Daylight</summary>
-
-| Option    | Description |
-| --------- | ----------- |
-| `midday`  | Midday      |
-| `night`   | Night       |
-| `sunset`  | Sunset      |
-| `sunrise` | Sunrise     |
-
-</details>
-
-<details>
-<summary>Season</summary>
-
-| Option   | Description                      |
-| -------- | -------------------------------- |
-| `spring` | Blooming flowers, fresh greenery |
-| `summer` | Vibrant greens, full foliage     |
-| `autumn` | Fall colors, orange/red foliage  |
-| `winter` | Snow-covered, bare trees         |
-
-</details>
-
-<details>
-<summary>Color</summary>
-
-| Option                   | Description                            |
-| ------------------------ | -------------------------------------- |
-| `warm-earth-tones`       | Browns, terracottas, and warm neutrals |
-| `historical-romance`     | Muted, vintage-inspired colors         |
-| `laid-back-blues`        | Calming blue palette                   |
-| `palm-springs-modern`    | Bright retro-inspired colors           |
-| `sweet-pastels`          | Soft, light color palette              |
-| `rich-jewel-tones`       | Deep, saturated colors                 |
-| `desert-chic`            | Warm, sand-inspired neutrals           |
-| `forest-inspired`        | Natural greens and browns              |
-| `high-contrast-neutrals` | Black, white, and gray combinations    |
-| `airy-neutrals`          | Light, barely-there neutrals           |
-| `coastal-neutrals`       | Beach-inspired light colors            |
-| `ecletic-boho`           | Mix of bright, diverse colors          |
-
-</details>
-
-<details>
-<summary>Creativity</summary>
-
-| Option     | Description                                           |
-| ---------- | ----------------------------------------------------- |
-| `precise`  | Stays very close to the original image                |
-| `balanced` | Moderate changes while maintaining original structure |
-| `creative` | More significant artistic interpretation              |
-
-</details>
-
-**Note:** When `creativity` is set to "precise", you can fine-tune the variation level using the `creativity_level` parameter. This parameter is ignored for "balanced" and "creative" presets.
 
 **Interior Rendering Example:**
 
@@ -313,7 +184,7 @@ curl -X POST \
     "file_name": "<your_file_name>",
     "creativity": "balanced",
     "type": "living-room",
-    "style": "modern",
+    "style": "minimalist-haven",
     "daylight": "midday"
   }'
 ```
@@ -359,13 +230,13 @@ Use these parameters when specifying `field=exterior` in the query string.
 
 | Parameter          | Type   | Required | Description                  | Constraints                                                                                               |
 | ------------------ | ------ | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `type`             | string | No       | The building/structure type  | Must be one of the supported types. Defaults to "no-type" if not specified                                |
-| `style`            | string | No       | The desired rendering style  | Must be one of the supported styles. Defaults to "no-style" if not specified                              |
-| `daylight`         | string | No       | Time of day for lighting     | Must be one of the supported daylight options                                                             |
-| `sky`              | string | No       | Sky condition                | Must be one of the supported sky styles                                                                   |
-| `season`           | string | No       | Season to be depicted        | Must be one of the supported seasons                                                                      |
-| `landscape`        | string | No       | Surrounding environment      | Must be one of the supported landscapes                                                                   |
-| `material`         | string | No       | Primary building material    | Must be one of the supported materials                                                                    |
+| `type`             | string | No       | The building/structure type  | Must be one of the [supported exterior types](#exterior-type). Defaults to "no-type" if not specified     |
+| `style`            | string | No       | The desired rendering style  | Must be one of the [supported exterior styles](#exterior-style). Defaults to "no-style" if not specified  |
+| `daylight`         | string | No       | Time of day for lighting     | Must be one of the [supported daylight options](#daylight)                                                |
+| `sky`              | string | No       | Sky condition                | Must be one of the [supported sky styles](#exterior-sky)                                                  |
+| `season`           | string | No       | Season to be depicted        | Must be one of the [supported seasons](#season)                                                           |
+| `landscape`        | string | No       | Surrounding environment      | Must be one of the [supported landscapes](#exterior-landscape)                                            |
+| `material`         | string | No       | Primary building material    | Must be one of the [supported materials](#exterior-material)                                              |
 | `prompt`           | string | No       | Additional text instructions | Free-form text                                                                                            |
 | `creativity_level` | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
 
@@ -376,17 +247,270 @@ Use these parameters when specifying `field=exterior` in the query string.
   "file_name": "<uuid>.<ext>",
   "creativity": "balanced",
   "type": "single-family-home",
-  "style": "modern",
-  "daylight": "sunset",
-  "sky": "clear",
-  "season": "summer"
+  "style": "sleek-international",
+  "daylight": "sunset"
 }
 ```
 
-**Available Options for Exterior Rendering:**
+**Exterior Rendering Example:**
 
-<details>
-<summary>Type</summary>
+```bash
+curl -X POST \
+  'https://reroom.ai/api/enterprise/render?field=exterior' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "file_name": "<your_file_name>",
+    "creativity": "balanced",
+    "type": "single-family-home",
+    "style": "sleek-international",
+    "daylight": "sunset"
+  }'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/render"
+params = {
+    "field": "exterior"
+}
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "file_name": "<your_file_name>",
+    "creativity": "balanced",
+    "type": "single-family-home",
+    "style": "sleek-international",
+    "daylight": "sunset"
+}
+
+response = requests.post(url, headers=headers, params=params, json=payload)
+
+if response.status_code == 200:
+    data = response.json()
+    render_id = data["data"]["render_id"]
+    print(f"Render request submitted. Render ID: {render_id}")
+else:
+    print(f"Render request failed: {response.text}")
+```
+
+#### 2.3 Sketch Rendering Parameters
+
+Use these parameters when specifying `tool=sketch` in the request body. You can also use the `field` query parameter to specify "interior" or "exterior".
+
+**Required Parameters:**
+
+| Parameter   | Type   | Required | Description                                  | Constraints                           |
+| ----------- | ------ | -------- | -------------------------------------------- | ------------------------------------- |
+| `file_name` | string | Yes      | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `tool`      | string | Yes      | The tool to use for rendering                | Must be "sketch"                      |
+
+**Optional Parameters:**
+
+| Parameter | Type   | Required | Description                 | Constraints                                                                                                                           |
+| --------- | ------ | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | string | No       | The space or building type  | Must be one of the supported types based on the `field` value specified ([interior](#interior-type) or [exterior](#exterior-type))    |
+| `style`   | string | No       | The desired rendering style | Must be one of the supported styles based on the `field` value specified ([interior](#interior-style) or [exterior](#exterior-style)) |
+| `view`    | string | No       | The view type for sketch    | One of: "drawing", "floorplan", "section", "elevation"                                                                                |
+
+**Query Parameters:**
+
+| Parameter | Type   | Required | Description                         | Default    | Values                 |
+| --------- | ------ | -------- | ----------------------------------- | ---------- | ---------------------- |
+| `field`   | string | No       | Type of rendering request to submit | `interior` | `interior`, `exterior` |
+
+**Request Body Example:**
+
+```json
+{
+  "file_name": "<uuid>.<ext>",
+  "tool": "sketch",
+  "type": "living-room",
+  "style": "modern-fusion",
+  "view": "floorplan"
+}
+```
+
+**Note:** The `type` and `style` parameters accept the same values as listed in the Interior or Exterior rendering parameters sections, depending on the `field` value.
+
+**Sketch Rendering Example:**
+
+```bash
+curl -X POST \
+  'https://reroom.ai/api/enterprise/render?field=interior' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "file_name": "<your_file_name>",
+    "tool": "sketch",
+    "type": "living-room",
+    "style": "minimalist-haven",
+    "view": "floorplan"
+  }'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/render"
+params = {
+    "field": "interior"
+}
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "file_name": "<your_file_name>",
+    "tool": "sketch",
+    "type": "living-room",
+    "style": "minimalist-haven",
+    "view": "floorplan"
+}
+
+response = requests.post(url, headers=headers, params=params, json=payload)
+
+if response.status_code == 200:
+    data = response.json()
+    render_id = data["data"]["render_id"]
+    print(f"Render request submitted. Render ID: {render_id}")
+else:
+    print(f"Render request failed: {response.text}")
+```
+
+### Response for All Render Requests
+
+**Success (200 OK):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "render_id": "<render_id>"
+  }
+}
+```
+
+- `render_id`: The unique ID of the rendering request. Use this ID to check render status.
+- Each render request produces 1 output image.
+
+**Error Responses:**
+
+```json
+{ "err": "<error_message>" }
+```
+
+| Status Code | Possible Error Messages                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
+| 401         | "Unauthorized"                                                                                    |
+| 500         | "Image upload failed"                                                                             |
+
+## Shared Field Options
+
+This section organizes the available options for both interior and exterior rendering fields.
+
+### Interior Options
+
+<a id="interior-type"></a>
+
+#### Interior Type Options
+
+| Option              | Description               |
+| ------------------- | ------------------------- |
+| `no-type`           | No specific interior type |
+| `living-room`       | Living Room               |
+| `kitchen`           | Kitchen                   |
+| `bedroom`           | Bedroom                   |
+| `bathroom`          | Bathroom                  |
+| `attic`             | Attic                     |
+| `dining-room`       | Dining Room               |
+| `study-room`        | Study Room                |
+| `home-office`       | Home Office               |
+| `gaming-room`       | Gaming Room               |
+| `house-exterior`    | House Exterior            |
+| `outdoor-pool-area` | Outdoor Pool Area         |
+| `outdoor-patio`     | Outdoor Patio             |
+| `outdoor-garden`    | Outdoor Garden            |
+| `meeting-room`      | Meeting Room              |
+| `workshop`          | Workshop                  |
+| `fitness-gym`       | Fitness Gym               |
+| `coffee-shop`       | Coffee Shop               |
+| `clothing-store`    | Clothing Store            |
+| `walk-in-closet`    | Walk-in Closet            |
+| `toilet`            | Toilet                    |
+| `restaurant`        | Restaurant                |
+| `office`            | Office                    |
+| `coworking-space`   | Coworking Space           |
+| `hotel-lobby`       | Hotel Lobby               |
+| `hotel-room`        | Hotel Room                |
+| `hotel-bathroom`    | Hotel Bathroom            |
+| `exhibition-space`  | Exhibition Space          |
+| `onsen`             | Onsen                     |
+| `mudroom`           | Mudroom                   |
+
+<a id="interior-style"></a>
+
+#### Interior Style Options
+
+| Option                   | Description            |
+| ------------------------ | ---------------------- |
+| `no-style`               | No Style               |
+| `minimalist-haven`       | Minimalist Haven       |
+| `modern-fusion`          | Modern Fusion          |
+| `contemporary-elegance`  | Contemporary Elegance  |
+| `industrial-loft`        | Industrial Loft        |
+| `bohemian-oasis`         | Bohemian Oasis         |
+| `coastal-breeze`         | Coastal Breeze         |
+| `desert-retreat`         | Desert Retreat         |
+| `mountain-escape`        | Mountain Escape        |
+| `victorian-elegance`     | Victorian Elegance     |
+| `art-deco-glamour`       | Art Deco Glamour       |
+| `mid-century-modern`     | Mid-Century Modern     |
+| `french-country-charm`   | French Country Charm   |
+| `colonial-classic`       | Colonial Classic       |
+| `scandinavian-sanctuary` | Scandinavian Sanctuary |
+| `japanese-zen`           | Japanese Zen           |
+| `moroccan-mystique`      | Moroccan Mystique      |
+| `mediterranean-retreat`  | Mediterranean Retreat  |
+| `indian-exuberance`      | Indian Exuberance      |
+| `travelers-trove`        | Traveler's Trove       |
+| `cyber-eclectic-fusion`  | Cyber Eclectic Fusion  |
+| `neon-noir`              | Neon Noir              |
+| `techno-wonderland`      | Techno Wonderland      |
+| `retro-futurism`         | Retro Futurism         |
+| `digital-zen`            | Digital Zen            |
+| `rustic`                 | Rustic                 |
+| `vintage`                | Vintage                |
+| `shabby-chic`            | Shabby Chic            |
+
+<a id="interior-color"></a>
+
+#### Interior Color Options
+
+| Option                   | Description                            |
+| ------------------------ | -------------------------------------- |
+| `warm-earth-tones`       | Browns, terracottas, and warm neutrals |
+| `historical-romance`     | Muted, vintage-inspired colors         |
+| `laid-back-blues`        | Calming blue palette                   |
+| `palm-springs-modern`    | Bright retro-inspired colors           |
+| `sweet-pastels`          | Soft, light color palette              |
+| `rich-jewel-tones`       | Deep, saturated colors                 |
+| `desert-chic`            | Warm, sand-inspired neutrals           |
+| `forest-inspired`        | Natural greens and browns              |
+| `high-contrast-neutrals` | Black, white, and gray combinations    |
+| `airy-neutrals`          | Light, barely-there neutrals           |
+| `coastal-neutrals`       | Beach-inspired light colors            |
+| `ecletic-boho`           | Mix of bright, diverse colors          |
+
+### Exterior Options
+
+<a id="exterior-type"></a>
+
+#### Exterior Type Options
 
 | Option                | Description               |
 | --------------------- | ------------------------- |
@@ -420,10 +544,9 @@ Use these parameters when specifying `field=exterior` in the query string.
 | `greenhouse`          | Greenhouse                |
 | `distribution-center` | Distribution Center       |
 
-</details>
+<a id="exterior-style"></a>
 
-<details>
-<summary>Style</summary>
+#### Exterior Style Options
 
 | Option                       | Description                |
 | ---------------------------- | -------------------------- |
@@ -483,21 +606,9 @@ Use these parameters when specifying `field=exterior` in the query string.
 | `islamic-fatimid`            | Islamic Fatimid            |
 | `islamic-seljuk`             | Islamic Seljuk             |
 
-</details>
-<details>
-<summary>Daylight</summary>
+<a id="exterior-sky"></a>
 
-| Option    | Description |
-| --------- | ----------- |
-| `midday`  | Midday      |
-| `night`   | Night       |
-| `sunset`  | Sunset      |
-| `sunrise` | Sunrise     |
-
-</details>
-
-<details>
-<summary>Sky</summary>
+#### Exterior Sky Options
 
 | Option   | Description |
 | -------- | ----------- |
@@ -507,22 +618,9 @@ Use these parameters when specifying `field=exterior` in the query string.
 | `snowy`  | Snowy Sky   |
 | `misty`  | Misty Sky   |
 
-</details>
+<a id="exterior-landscape"></a>
 
-<details>
-<summary>Season</summary>
-
-| Option   | Description |
-| -------- | ----------- |
-| `spring` | Spring      |
-| `summer` | Summer      |
-| `autumn` | Autumn      |
-| `winter` | Winter      |
-
-</details>
-
-<details>
-<summary>Landscape</summary>
+#### Exterior Landscape Options
 
 | Option        | Description                            |
 | ------------- | -------------------------------------- |
@@ -537,10 +635,9 @@ Use these parameters when specifying `field=exterior` in the query string.
 | `tundra`      | Cold, treeless arctic landscape        |
 | `wetland`     | Marshy area with water features        |
 
-</details>
+<a id="exterior-material"></a>
 
-<details>
-<summary>Material</summary>
+#### Exterior Material Options
 
 | Option     | Description                    |
 | ---------- | ------------------------------ |
@@ -555,93 +652,39 @@ Use these parameters when specifying `field=exterior` in the query string.
 | `gypsum`   | Mineral-based wall material    |
 | `plastic`  | Synthetic polymer material     |
 
-</details>
+### Shared Options
 
-<details>
-<summary>Creativity</summary>
+<a id="daylight"></a>
+
+#### Daylight Options
+
+| Option    | Description |
+| --------- | ----------- |
+| `midday`  | Midday      |
+| `night`   | Night       |
+| `sunset`  | Sunset      |
+| `sunrise` | Sunrise     |
+
+<a id="season"></a>
+
+#### Season Options
+
+| Option   | Description                      |
+| -------- | -------------------------------- |
+| `spring` | Blooming flowers, fresh greenery |
+| `summer` | Vibrant greens, full foliage     |
+| `autumn` | Fall colors, orange/red foliage  |
+| `winter` | Snow-covered, bare trees         |
+
+<a id="creativity"></a>
+
+#### Creativity Options
 
 | Option     | Description                                           |
 | ---------- | ----------------------------------------------------- |
 | `precise`  | Stays very close to the original image                |
 | `balanced` | Moderate changes while maintaining original structure |
 | `creative` | More significant artistic interpretation              |
-
-</details>
-
-**Note:** When `creativity` is set to "precise", you can fine-tune the variation level using the `creativity_level` parameter. This parameter is ignored for "balanced" and "creative" presets.
-
-**Exterior Rendering Example:**
-
-```bash
-curl -X POST \
-  'https://reroom.ai/api/enterprise/render?field=exterior' \
-  -H 'Authorization: Bearer <your_enterprise_api_key>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "file_name": "<your_file_name>",
-    "creativity": "balanced",
-    "type": "single-family-home",
-    "style": "modern",
-    "daylight": "sunset"
-  }'
-```
-
-```python
-import requests
-
-url = "https://reroom.ai/api/enterprise/render"
-params = {
-    "field": "exterior"
-}
-headers = {
-    "Authorization": "Bearer <your_enterprise_api_key>",
-    "Content-Type": "application/json"
-}
-payload = {
-    "file_name": "<your_file_name>",
-    "creativity": "balanced",
-    "type": "single-family-home",
-    "style": "modern",
-    "daylight": "sunset"
-}
-
-response = requests.post(url, headers=headers, params=params, json=payload)
-
-if response.status_code == 200:
-    data = response.json()
-    render_id = data["data"]["render_id"]
-    print(f"Render request submitted. Render ID: {render_id}")
-else:
-    print(f"Render request failed: {response.text}")
-```
-
-### Response for All Render Requests
-
-**Success (200 OK):**
-
-```json
-{
-  "success": true,
-  "data": {
-    "render_id": "<render_id>"
-  }
-}
-```
-
-- `render_id`: The unique ID of the rendering request. Use this ID to check render status.
-- Each render request produces 1 output image.
-
-**Error Responses:**
-
-```json
-{ "err": "<error_message>" }
-```
-
-| Status Code | Possible Error Messages                                                                           |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
-| 401         | "Unauthorized"                                                                                    |
-| 500         | "Image upload failed"                                                                             |
 
 ### 3. Submit Upscale Request
 
@@ -794,6 +837,25 @@ The response format varies based on the render type (interior or exterior). Both
   "material": "<material>",
   "creativity": "<creativity>",
   "creativity_level": 0.7,
+  "prompt": "<prompt>",
+  "room_id": "<room_id>",
+  "status": "<status>",
+  "outputs": ["<s3_url_1>"],
+  "created_at": "<date>",
+  "updated_at": "<date>"
+}
+```
+
+**Sketch Render Response Format:**
+
+```json
+{
+  "_id": "<render_id>",
+  "uid": "<user_id>",
+  "source": "<s3_url>",
+  "type": "<type>",
+  "style": "<style>",
+  "view": "<view>",
   "prompt": "<prompt>",
   "room_id": "<room_id>",
   "status": "<status>",
