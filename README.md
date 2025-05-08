@@ -13,11 +13,12 @@ This document describes the ReRoom Enterprise API, which allows enterprise users
     - [Interior Rendering](#21-interior-rendering-parameters)
     - [Exterior Rendering](#22-exterior-rendering-parameters)
     - [Sketch Rendering](#23-sketch-rendering-parameters)
-    - [Response for All Render Requests](#response-for-all-render-requests)
     - [Shared Field Options](#shared-field-options)
-      - [Interior Options](#interior-options)
-      - [Exterior Options](#exterior-options)
-  - [Submit Upscale Request](#3-submit-upscale-request)
+      - [Interior Options](#1-interior-options)
+      - [Exterior Options](#2-exterior-options)
+      - [Shared Options](#3-shared-options)
+    - [Submit Upscale Request](#3-submit-upscale-request)
+  - [Response for All Render Requests](#response-for-all-render-requests)
   - [Check Render Status](#4-check-render-status)
   - [Get Credit Status](#5-get-credit-status)
 
@@ -381,43 +382,15 @@ else:
     print(f"Render request failed: {response.text}")
 ```
 
-### Response for All Render Requests
-
-**Success (200 OK):**
-
-```json
-{
-  "success": true,
-  "data": {
-    "render_id": "<render_id>"
-  }
-}
-```
-
-- `render_id`: The unique ID of the rendering request. Use this ID to check render status.
-- Each render request produces 1 output image.
-
-**Error Responses:**
-
-```json
-{ "err": "<error_message>" }
-```
-
-| Status Code | Possible Error Messages                                                                           |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
-| 401         | "Unauthorized"                                                                                    |
-| 500         | "Image upload failed"                                                                             |
-
-## Shared Field Options
+### Shared Field Options
 
 This section organizes the available options for both interior and exterior rendering fields.
 
-### Interior Options
+#### 1. Interior Options
 
 <a id="interior-type"></a>
 
-#### Interior Type Options
+##### Interior Type Options
 
 | Option              | Description               |
 | ------------------- | ------------------------- |
@@ -454,7 +427,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="interior-style"></a>
 
-#### Interior Style Options
+##### Interior Style Options
 
 | Option                   | Description            |
 | ------------------------ | ---------------------- |
@@ -489,7 +462,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="interior-color"></a>
 
-#### Interior Color Options
+##### Interior Color Options
 
 | Option                   | Description                            |
 | ------------------------ | -------------------------------------- |
@@ -506,11 +479,11 @@ This section organizes the available options for both interior and exterior rend
 | `coastal-neutrals`       | Beach-inspired light colors            |
 | `ecletic-boho`           | Mix of bright, diverse colors          |
 
-### Exterior Options
+#### 2. Exterior Options
 
 <a id="exterior-type"></a>
 
-#### Exterior Type Options
+##### Exterior Type Options
 
 | Option                | Description               |
 | --------------------- | ------------------------- |
@@ -546,7 +519,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="exterior-style"></a>
 
-#### Exterior Style Options
+##### Exterior Style Options
 
 | Option                       | Description                |
 | ---------------------------- | -------------------------- |
@@ -608,7 +581,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="exterior-sky"></a>
 
-#### Exterior Sky Options
+##### Exterior Sky Options
 
 | Option   | Description |
 | -------- | ----------- |
@@ -620,7 +593,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="exterior-landscape"></a>
 
-#### Exterior Landscape Options
+##### Exterior Landscape Options
 
 | Option        | Description                            |
 | ------------- | -------------------------------------- |
@@ -637,7 +610,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="exterior-material"></a>
 
-#### Exterior Material Options
+##### Exterior Material Options
 
 | Option     | Description                    |
 | ---------- | ------------------------------ |
@@ -652,11 +625,11 @@ This section organizes the available options for both interior and exterior rend
 | `gypsum`   | Mineral-based wall material    |
 | `plastic`  | Synthetic polymer material     |
 
-### Shared Options
+#### 3. Shared Options
 
 <a id="daylight"></a>
 
-#### Daylight Options
+##### Daylight Options
 
 | Option    | Description |
 | --------- | ----------- |
@@ -667,7 +640,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="season"></a>
 
-#### Season Options
+##### Season Options
 
 | Option   | Description                      |
 | -------- | -------------------------------- |
@@ -678,7 +651,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="creativity"></a>
 
-#### Creativity Options
+##### Creativity Options
 
 | Option     | Description                                           |
 | ---------- | ----------------------------------------------------- |
@@ -775,6 +748,34 @@ else:
 ```
 
 **Note:** The upscaling process consumes 4 credits per request. Use the same endpoint for checking render status (`GET /api/enterprise/render/<render_id>`) to check the status of upscaling requests.
+
+### Response for All Render Requests
+
+**Success (200 OK):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "render_id": "<render_id>"
+  }
+}
+```
+
+- `render_id`: The unique ID of the rendering request. Use this ID to check render status.
+- Each render request produces 1 output image.
+
+**Error Responses:**
+
+```json
+{ "err": "<error_message>" }
+```
+
+| Status Code | Possible Error Messages                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
+| 401         | "Unauthorized"                                                                                    |
+| 500         | "Image upload failed"                                                                             |
 
 ### 4. Check Render Status
 
