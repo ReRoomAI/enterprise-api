@@ -13,12 +13,12 @@ This document describes the ReRoom Enterprise API, which allows enterprise users
     - [Interior Rendering](#21-interior-rendering-parameters)
     - [Exterior Rendering](#22-exterior-rendering-parameters)
     - [Sketch Rendering](#23-sketch-rendering-parameters)
-    - [Shared Field Options](#shared-field-options)
-      - [Interior Options](#1-interior-options)
-      - [Exterior Options](#2-exterior-options)
-      - [Shared Options](#3-shared-options)
-    - [Submit Upscale Request](#3-submit-upscale-request)
-  - [Response for All Render Requests](#response-for-all-render-requests)
+    - [Shared Field Options](#24-shared-field-options)
+      - [Interior Options](#241-interior-options)
+      - [Exterior Options](#242-exterior-options)
+      - [Shared Options](#243-shared-options)
+    - [Submit Upscale Request](#25-submit-upscale-request)
+  - [Response for All Render Requests](#3-response-for-all-render-requests)
   - [Check Render Status](#4-check-render-status)
   - [Get Credit Status](#5-get-credit-status)
 
@@ -382,11 +382,11 @@ else:
     print(f"Render request failed: {response.text}")
 ```
 
-### Shared Field Options
+#### 2.4 Shared Field Options
 
 This section organizes the available options for both interior and exterior rendering fields.
 
-#### 1. Interior Options
+##### 2.4.1 Interior Options
 
 <a id="interior-type"></a>
 
@@ -479,7 +479,7 @@ This section organizes the available options for both interior and exterior rend
 | `coastal-neutrals`       | Beach-inspired light colors            |
 | `ecletic-boho`           | Mix of bright, diverse colors          |
 
-#### 2. Exterior Options
+##### 2.4.2 Exterior Options
 
 <a id="exterior-type"></a>
 
@@ -625,7 +625,7 @@ This section organizes the available options for both interior and exterior rend
 | `gypsum`   | Mineral-based wall material    |
 | `plastic`  | Synthetic polymer material     |
 
-#### 3. Shared Options
+##### 2.4.3 Shared Options
 
 <a id="daylight"></a>
 
@@ -659,7 +659,7 @@ This section organizes the available options for both interior and exterior rend
 | `balanced` | Moderate changes while maintaining original structure |
 | `creative` | More significant artistic interpretation              |
 
-### 3. Submit Upscale Request
+#### 2.5 Submit Upscale Request
 
 **Endpoint:** `POST /api/enterprise/upscale`
 
@@ -749,7 +749,7 @@ else:
 
 **Note:** The upscaling process consumes 4 credits per request. Use the same endpoint for checking render status (`GET /api/enterprise/render/<render_id>`) to check the status of upscaling requests.
 
-### Response for All Render Requests
+### 3. Response for All Render Requests
 
 **Success (200 OK):**
 
