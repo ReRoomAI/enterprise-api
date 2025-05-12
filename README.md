@@ -159,8 +159,11 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 
 | Parameter    | Type   | Required | Description                                  | Constraints                           |
 | ------------ | ------ | -------- | -------------------------------------------- | ------------------------------------- |
-| `file_name`  | string | Yes      | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_name`  | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_url`   | string | Yes\*    | The URL of the file to be rendered           | Must be a valid URL                   |
 | `creativity` | string | Yes      | Variation level preset                       | "precise", "balanced", or "creative"  |
+
+\*Either `file_name` or `file_url` must be provided.
 
 **Optional Parameters:**
 
@@ -174,48 +177,6 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 | `prompt`           | string | No       | Additional text instructions | Free-form text                                                                                            |
 | `creativity_level` | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
 
-**Interior Rendering Example:**
-
-```bash
-curl -X POST \
-  'https://reroom.ai/api/enterprise/render' \
-  -H 'Authorization: Bearer <your_enterprise_api_key>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "file_name": "<your_file_name>",
-    "creativity": "balanced",
-    "type": "living-room",
-    "style": "minimalist-haven",
-    "daylight": "midday"
-  }'
-```
-
-```python
-import requests
-
-url = "https://reroom.ai/api/enterprise/render"
-headers = {
-    "Authorization": "Bearer <your_enterprise_api_key>",
-    "Content-Type": "application/json"
-}
-payload = {
-    "file_name": "<your_file_name>",
-    "creativity": "balanced",
-    "type": "living-room",
-    "style": "modern",
-    "daylight": "midday"
-}
-
-response = requests.post(url, headers=headers, json=payload)
-
-if response.status_code == 200:
-    data = response.json()
-    render_id = data["data"]["render_id"]
-    print(f"Render request submitted. Render ID: {render_id}")
-else:
-    print(f"Render request failed: {response.text}")
-```
-
 #### 2.2 Exterior Rendering Parameters
 
 Use these parameters when specifying `field=exterior` in the query string.
@@ -224,8 +185,11 @@ Use these parameters when specifying `field=exterior` in the query string.
 
 | Parameter    | Type   | Required | Description                                  | Constraints                           |
 | ------------ | ------ | -------- | -------------------------------------------- | ------------------------------------- |
-| `file_name`  | string | Yes      | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_name`  | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_url`   | string | Yes\*    | The URL of the file to be rendered           | Must be a valid URL                   |
 | `creativity` | string | Yes      | Variation level preset                       | "precise", "balanced", or "creative"  |
+
+\*Either `file_name` or `file_url` must be provided.
 
 **Optional Parameters:**
 
@@ -306,8 +270,11 @@ Use these parameters when specifying `tool=sketch` in the request body. You can 
 
 | Parameter   | Type   | Required | Description                                  | Constraints                           |
 | ----------- | ------ | -------- | -------------------------------------------- | ------------------------------------- |
-| `file_name` | string | Yes      | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_name` | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_url`  | string | Yes\*    | The URL of the file to be rendered           | Must be a valid URL                   |
 | `tool`      | string | Yes      | The tool to use for rendering                | Must be "sketch"                      |
+
+\*Either `file_name` or `file_url` must be provided.
 
 **Optional Parameters:**
 
@@ -675,7 +642,10 @@ Submits an upscaling request for a previously uploaded image. This enhances the 
 
 | Parameter   | Type   | Required | Description                                  | Constraints                           |
 | ----------- | ------ | -------- | -------------------------------------------- | ------------------------------------- |
-| `file_name` | string | Yes      | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_name` | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_url`  | string | Yes\*    | The URL of the file to be upscaled           | Must be a valid URL                   |
+
+\*Either `file_name` or `file_url` must be provided.
 
 **Request Body Example:**
 
@@ -707,11 +677,11 @@ Submits an upscaling request for a previously uploaded image. This enhances the 
   { "err": "<error_message>" }
   ```
 
-  | Status Code | Possible Error Messages                                                                           |
-  | ----------- | ------------------------------------------------------------------------------------------------- |
-  | 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
-  | 401         | "Unauthorized"                                                                                    |
-  | 500         | "Image upload failed"                                                                             |
+  | Status Code | Possible Error Messages                                                                                            |
+  | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+  | 400         | "Invalid request", "No file name or file URL provided", "Not enough credits", "Maximum concurrent renders reached" |
+  | 401         | "Unauthorized"                                                                                                     |
+  | 500         | "Image processing failed"                                                                                          |
 
 **Examples:**
 
@@ -771,11 +741,11 @@ else:
 { "err": "<error_message>" }
 ```
 
-| Status Code | Possible Error Messages                                                                           |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| 400         | "Invalid request", "Invalid filename", "Not enough credits", "Maximum concurrent renders reached" |
-| 401         | "Unauthorized"                                                                                    |
-| 500         | "Image upload failed"                                                                             |
+| Status Code | Possible Error Messages                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| 400         | "Invalid request", "No file name or file URL provided", "Not enough credits", "Maximum concurrent renders reached" |
+| 401         | "Unauthorized"                                                                                                     |
+| 500         | "Image processing failed"                                                                                          |
 
 ### 4. Check Render Status
 
