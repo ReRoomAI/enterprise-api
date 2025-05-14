@@ -677,11 +677,11 @@ Submits an upscaling request using either a previously uploaded image (via the u
   { "err": "<error_message>" }
   ```
 
-  | Status Code | Possible Error Messages                                                                                            |
-  | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-  | 400         | "Invalid request", "No file name or file URL provided", "Not enough credits", "Maximum concurrent renders reached" |
-  | 401         | "Unauthorized"                                                                                                     |
-  | 500         | "Image processing failed"                                                                                          |
+  | Status Code | Possible Error Messages                                                                                                                               |
+  | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | 400         | "Invalid request", "Invalid filename", "Invalid URL", "No file name or file URL provided", "Not enough credits", "Maximum concurrent renders reached" |
+  | 401         | "Unauthorized"                                                                                                                                        |
+  | 500         | "Image processing failed"                                                                                                                             |
 
 **Examples:**
 
@@ -741,11 +741,11 @@ else:
 { "err": "<error_message>" }
 ```
 
-| Status Code | Possible Error Messages                                                                                            |
-| ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| 400         | "Invalid request", "No file name or file URL provided", "Not enough credits", "Maximum concurrent renders reached" |
-| 401         | "Unauthorized"                                                                                                     |
-| 500         | "Image processing failed"                                                                                          |
+| Status Code | Possible Error Messages                                                                                                                               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 400         | "Invalid request", "Invalid filename", "Invalid URL", "No file name or file URL provided", "Not enough credits", "Maximum concurrent renders reached" |
+| 401         | "Unauthorized"                                                                                                                                        |
+| 500         | "Image processing failed"                                                                                                                             |
 
 ### 4. Check Render Status
 
