@@ -135,7 +135,7 @@ else:
 **Endpoint:** `POST /api/enterprise/render`
 
 **Description:**  
-Submits a rendering request using a previously uploaded image. The endpoint uses a query parameter `field` to differentiate between interior and exterior rendering requests.
+Submits a rendering request using either a previously uploaded image (via the upload endpoint) or an external image URL. The endpoint uses a query parameter `field` to differentiate between interior and exterior rendering requests.
 
 **Headers:**
 
@@ -631,7 +631,7 @@ This section organizes the available options for both interior and exterior rend
 **Endpoint:** `POST /api/enterprise/upscale`
 
 **Description:**  
-Submits an upscaling request for a previously uploaded image. This enhances the resolution and quality of the image. The upscaled image will have a dimension of 1536 pixels on its shortest side.
+Submits an upscaling request using either a previously uploaded image (via the upload endpoint) or an external image URL. This enhances the resolution and quality of the image. The upscaled image will have a dimension of 1536 pixels on its shortest side.
 
 **Headers:**
 
