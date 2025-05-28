@@ -12,12 +12,15 @@ This document describes the ReRoom Enterprise API, which allows enterprise users
   - [Submit Render Request](#2-submit-render-request)
     - [Interior Rendering](#21-interior-rendering-parameters)
     - [Exterior Rendering](#22-exterior-rendering-parameters)
-    - [Sketch Rendering](#23-sketch-rendering-parameters)
-    - [Shared Field Options](#24-shared-field-options)
-      - [Interior Options](#241-interior-options)
-      - [Exterior Options](#242-exterior-options)
-      - [Shared Options](#243-shared-options)
-    - [Submit Upscale Request](#25-submit-upscale-request)
+    - [Sketch](#23-sketch)
+    - [Empty Room](#24-empty-room)
+    - [Virtual Staging](#25-virtual-staging)
+    - [Edit Image](#26-edit-image)
+    - [Shared Field Options](#27-shared-field-options)
+      - [Interior Options](#271-interior-options)
+      - [Exterior Options](#272-exterior-options)
+      - [Shared Options](#273-shared-options)
+    - [Upscale Image](#28-upscale-image)
   - [Response for All Render Requests](#3-response-for-all-render-requests)
   - [Check Render Status](#4-check-render-status)
   - [Get Credit Status](#5-get-credit-status)
@@ -167,15 +170,16 @@ Use these parameters when specifying `field=interior` or omitting the `field` pa
 
 **Optional Parameters:**
 
-| Parameter          | Type   | Required | Description                  | Constraints                                                                                               |
-| ------------------ | ------ | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `type`             | string | No       | The interior space type      | Must be one of the [supported interior types](#interior-type). Defaults to "no-type" if not specified     |
-| `style`            | string | No       | The desired rendering style  | Must be one of the [supported interior styles](#interior-style). Defaults to "no-style" if not specified  |
-| `daylight`         | string | No       | Time of day for lighting     | Must be one of the [supported daylight options](#daylight)                                                |
-| `season`           | string | No       | Season to be depicted        | Must be one of the [supported seasons](#season)                                                           |
-| `color`            | string | No       | Color palette                | Must be one of the [supported color schemes](#interior-color)                                             |
-| `prompt`           | string | No       | Additional text instructions | Free-form text                                                                                            |
-| `creativity_level` | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
+| Parameter                | Type   | Required | Description                  | Constraints                                                                                               |
+| ------------------------ | ------ | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `type`                   | string | No       | The interior space type      | Must be one of the [supported interior types](#interior-type). Defaults to "no-type" if not specified     |
+| `style`                  | string | No       | The desired rendering style  | Must be one of the [supported interior styles](#interior-style). Defaults to "no-style" if not specified  |
+| `daylight`               | string | No       | Time of day for lighting     | Must be one of the [supported daylight options](#daylight)                                                |
+| `season`                 | string | No       | Season to be depicted        | Must be one of the [supported seasons](#season)                                                           |
+| `color`                  | string | No       | Color palette                | Must be one of the [supported color schemes](#interior-color)                                             |
+| `architectural_material` | string | No       | Primary building material    | Must be one of the [supported architectural materials](#architectural-materials)                          |
+| `prompt`                 | string | No       | Additional text instructions | Free-form text                                                                                            |
+| `creativity_level`       | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
 
 #### 2.2 Exterior Rendering Parameters
 
@@ -193,17 +197,17 @@ Use these parameters when specifying `field=exterior` in the query string.
 
 **Optional Parameters:**
 
-| Parameter          | Type   | Required | Description                  | Constraints                                                                                               |
-| ------------------ | ------ | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `type`             | string | No       | The building/structure type  | Must be one of the [supported exterior types](#exterior-type). Defaults to "no-type" if not specified     |
-| `style`            | string | No       | The desired rendering style  | Must be one of the [supported exterior styles](#exterior-style). Defaults to "no-style" if not specified  |
-| `daylight`         | string | No       | Time of day for lighting     | Must be one of the [supported daylight options](#daylight)                                                |
-| `sky`              | string | No       | Sky condition                | Must be one of the [supported sky styles](#exterior-sky)                                                  |
-| `season`           | string | No       | Season to be depicted        | Must be one of the [supported seasons](#season)                                                           |
-| `landscape`        | string | No       | Surrounding environment      | Must be one of the [supported landscapes](#exterior-landscape)                                            |
-| `material`         | string | No       | Primary building material    | Must be one of the [supported materials](#exterior-material)                                              |
-| `prompt`           | string | No       | Additional text instructions | Free-form text                                                                                            |
-| `creativity_level` | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
+| Parameter                | Type   | Required | Description                  | Constraints                                                                                               |
+| ------------------------ | ------ | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `type`                   | string | No       | The building/structure type  | Must be one of the [supported exterior types](#exterior-type). Defaults to "no-type" if not specified     |
+| `style`                  | string | No       | The desired rendering style  | Must be one of the [supported exterior styles](#exterior-style). Defaults to "no-style" if not specified  |
+| `daylight`               | string | No       | Time of day for lighting     | Must be one of the [supported daylight options](#daylight)                                                |
+| `sky`                    | string | No       | Sky condition                | Must be one of the [supported sky styles](#exterior-sky)                                                  |
+| `season`                 | string | No       | Season to be depicted        | Must be one of the [supported seasons](#season)                                                           |
+| `landscape`              | string | No       | Surrounding environment      | Must be one of the [supported landscapes](#exterior-landscape)                                            |
+| `architectural_material` | string | No       | Primary building material    | Must be one of the [supported architectural materials](#exterior-material)                                |
+| `prompt`                 | string | No       | Additional text instructions | Free-form text                                                                                            |
+| `creativity_level`       | number | No       | Fine-tuned variation control | Range: 0.5 (conservative) to 1.0 (creative). Defaults to 0.7. Only applies when `creativity` is "precise" |
 
 **Request Body Example:**
 
@@ -262,7 +266,7 @@ else:
     print(f"Render request failed: {response.text}")
 ```
 
-#### 2.3 Sketch Rendering Parameters
+#### 2.3 Sketch
 
 Use these parameters when specifying `tool=sketch` in the request body. You can also use the `field` query parameter to specify "interior" or "exterior".
 
@@ -349,11 +353,368 @@ else:
     print(f"Render request failed: {response.text}")
 ```
 
-#### 2.4 Shared Field Options
+#### 2.4 Empty Room
+
+Use these parameters when specifying `tool=empty-room` in the request body.
+
+**Required Parameters:**
+
+| Parameter   | Type   | Required | Description                                  | Constraints                           |
+| ----------- | ------ | -------- | -------------------------------------------- | ------------------------------------- |
+| `file_name` | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_url`  | string | Yes\*    | The URL of the file to be rendered           | Must be a valid URL                   |
+| `tool`      | string | Yes      | The tool to use for rendering                | Must be "empty-room"                  |
+
+\*Either `file_name` or `file_url` must be provided.
+
+**Description:**  
+The empty-room tool removes all furniture, decorations, and personal items from an image, leaving only the architectural elements. This is useful for virtual staging or when you want to start with a clean slate before adding new furniture or decorations. Unlike other rendering tools, the empty-room tool processes images independently of the interior/exterior distinction and does not require or use the `field` parameter.
+
+**Request Body Example:**
+
+```json
+{
+  "file_name": "<uuid>.<ext>",
+  "tool": "empty-room"
+}
+```
+
+**Empty Room Rendering Example:**
+
+```bash
+curl -X POST \
+  'https://reroom.ai/api/enterprise/render' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "file_name": "<your_file_name>",
+    "tool": "empty-room"
+  }'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/render"
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "file_name": "<your_file_name>",
+    "tool": "empty-room"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+
+if response.status_code == 200:
+    data = response.json()
+    render_id = data["data"]["render_id"]
+    print(f"Empty room request submitted. Render ID: {render_id}")
+else:
+    print(f"Empty room request failed: {response.text}")
+```
+
+#### 2.5 Virtual Staging
+
+Use these parameters when specifying `tool=virtual-staging` in the request body.
+
+**Required Parameters:**
+
+| Parameter   | Type   | Required | Description                                  | Constraints                           |
+| ----------- | ------ | -------- | -------------------------------------------- | ------------------------------------- |
+| `file_name` | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format |
+| `file_url`  | string | Yes\*    | The URL of the file to be rendered           | Must be a valid URL                   |
+| `tool`      | string | Yes      | The tool to use for rendering                | Must be "virtual-staging"             |
+| `action`    | string | Yes      | The staging approach to use                  | Must be "preset" or "reference"       |
+
+\*Either `file_name` or `file_url` must be provided.
+
+**Parameters for Preset Mode:**
+
+When `action` is set to "preset", the following parameters are required:
+
+| Parameter | Type   | Required | Description                          | Constraints                                                    |
+| --------- | ------ | -------- | ------------------------------------ | -------------------------------------------------------------- |
+| `type`    | string | Yes      | The type of room to stage            | Must be one of the [supported staging types](#staging-types)   |
+| `style`   | string | Yes      | The design style for virtual staging | Must be one of the [supported staging styles](#staging-styles) |
+
+**Parameters for Reference Mode:**
+
+When `action` is set to "reference", the following parameters are required:
+
+| Parameter             | Type     | Required | Description                                | Constraints              |
+| --------------------- | -------- | -------- | ------------------------------------------ | ------------------------ |
+| `reference_file_urls` | string[] | Yes      | URLs of reference images for staging style | Must be valid image URLs |
+
+**Description:**  
+The virtual-staging tool adds furniture and decorations to an empty or sparsely furnished room based on either preset design styles or reference images. This tool processes images immediately and returns a completed staged image without queuing, unlike other rendering tools. It's useful for real estate marketing, interior design visualization, or showing clients how a space could look when furnished.
+
+**Request Body Example (Preset Mode):**
+
+```json
+{
+  "file_name": "<uuid>.<ext>",
+  "tool": "virtual-staging",
+  "action": "preset",
+  "type": "living-room",
+  "style": "modern"
+}
+```
+
+**Request Body Example (Reference Mode):**
+
+```json
+{
+  "file_name": "<uuid>.<ext>",
+  "tool": "virtual-staging",
+  "action": "reference",
+  "reference_file_urls": [
+    "https://example.com/reference1.jpg",
+    "https://example.com/reference2.jpg"
+  ]
+}
+```
+
+**Virtual Staging Example (Preset Mode):**
+
+```bash
+curl -X POST \
+  'https://reroom.ai/api/enterprise/render' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "file_name": "<your_file_name>",
+    "tool": "virtual-staging",
+    "action": "preset",
+    "type": "living-room",
+    "style": "modern"
+  }'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/render"
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "file_name": "<your_file_name>",
+    "tool": "virtual-staging",
+    "action": "preset",
+    "type": "living-room",
+    "style": "modern"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+
+if response.status_code == 200:
+    data = response.json()
+    render_id = data["data"]["render_id"]
+    print(f"Virtual staging request submitted. Render ID: {render_id}")
+else:
+    print(f"Virtual staging request failed: {response.text}")
+```
+
+<a id="staging-types"></a>
+
+##### Staging Types
+
+| Option         | Description  |
+| -------------- | ------------ |
+| `living-room`  | Living Room  |
+| `dining-room`  | Dining Room  |
+| `kitchen`      | Kitchen      |
+| `bedroom`      | Bedroom      |
+| `bathroom`     | Bathroom     |
+| `office`       | Office       |
+| `meeting-room` | Meeting Room |
+| `restaurant`   | Restaurant   |
+
+<a id="staging-styles"></a>
+
+##### Staging Styles
+
+| Option             | Description      |
+| ------------------ | ---------------- |
+| `modern`           | Modern           |
+| `scandinavian`     | Scandinavian     |
+| `mediterranean`    | Mediterranean    |
+| `industrial`       | Industrial       |
+| `american-vintage` | American Vintage |
+| `neo-classical`    | Neo-Classical    |
+| `luxury`           | Luxury           |
+| `futuristic`       | Futuristic       |
+
+#### 2.6 Edit Image
+
+Use these parameters when specifying `tool=edit` in the request body.
+
+**Required Parameters:**
+
+| Parameter   | Type   | Required | Description                                  | Constraints                                              |
+| ----------- | ------ | -------- | -------------------------------------------- | -------------------------------------------------------- |
+| `file_name` | string | Yes\*    | The filename returned by the upload endpoint | Must be a valid UUID+extension format                    |
+| `file_url`  | string | Yes\*    | The URL of the file to be rendered           | Must be a valid URL                                      |
+| `tool`      | string | Yes      | The tool to use for rendering                | Must be "edit"                                           |
+| `action`    | string | Yes      | The type of edit to perform                  | Must be one of: "object", "remove", "material", "prompt" |
+| `mask`      | string | Yes      | Base64-encoded mask image data               | Valid base64 string representing the mask                |
+| `field`     | string | Yes      | Type of space to edit                        | Must be "interior" or "exterior"                         |
+
+\*Either `file_name` or `file_url` must be provided.
+
+**Action-Specific Parameters:**
+
+Depending on the `action` value, you must provide additional parameters:
+
+1. **For `action="material"`:**
+
+| Parameter  | Type   | Required | Description                       | Constraints                                          |
+| ---------- | ------ | -------- | --------------------------------- | ---------------------------------------------------- |
+| `material` | string | Yes      | The material to apply to the mask | Must be one of the [Edit Materials](#edit-materials) |
+
+2. **For `action="prompt"`:**
+
+| Parameter | Type   | Required | Description                                        | Constraints    |
+| --------- | ------ | -------- | -------------------------------------------------- | -------------- |
+| `prompt`  | string | Yes      | Text instructions for what to add in the mask area | Free-form text |
+
+3. **For `action="object"`:**
+
+| Parameter | Type   | Required | Description                            | Constraints                                  |
+| --------- | ------ | -------- | -------------------------------------- | -------------------------------------------- |
+| `object`  | object | Yes      | The object to place in the masked area | Object with `category` and `name` properties |
+
+The `object` parameter should have the following structure:
+
+```json
+{
+  "category": "<category>",
+  "name": "<name>"
+}
+```
+
+Where:
+
+- For interiors (`field="interior"`): `category` must be one of: "furniture", "decoration", "creature" (see [Edit Object Categories](#edit-object-categories) and [Edit Object Names (Interior)](#edit-object-names-interior)).
+- For exteriors (`field="exterior"`): `category` must be one of: "street_landscape", "street_furniture", "street_creature" (see [Edit Object Categories](#edit-object-categories) and [Edit Object Names (Exterior)](#edit-object-names-exterior)).
+- The `name` must be one of the valid options for the selected category.
+
+- For `action="remove"`, no additional parameters are required. The masked area will be removed and filled in based on the surrounding context.
+
+**Description:**  
+The edit tool allows targeted modifications to specific areas of an image defined by a mask. You can change materials, add objects, remove elements, or apply custom prompts to the masked region. This is useful for modifying existing designs, testing different materials, or adding/removing specific elements.
+
+**Request Body Example (Material Edit):**
+
+```json
+{
+  "file_name": "<uuid>.<ext>",
+  "tool": "edit",
+  "action": "material",
+  "mask": "base64-encoded-mask-data",
+  "material": "marble",
+  "field": "interior"
+}
+```
+
+**Request Body Example (Object Edit):**
+
+```json
+{
+  "file_name": "<uuid>.<ext>",
+  "tool": "edit",
+  "action": "object",
+  "mask": "base64-encoded-mask-data",
+  "object": {
+    "category": "furniture",
+    "name": "sofa"
+  },
+  "field": "interior"
+}
+```
+
+**Edit Example (Material):**
+
+```bash
+curl -X POST \
+  'https://reroom.ai/api/enterprise/render?field=interior' \
+  -H 'Authorization: Bearer <your_enterprise_api_key>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "file_name": "<your_file_name>",
+    "tool": "edit",
+    "action": "material",
+    "mask": "<base64-encoded-mask-data>",
+    "material": "marble",
+    "field": "interior"
+  }'
+```
+
+```python
+import requests
+
+url = "https://reroom.ai/api/enterprise/render"
+params = {
+    "field": "interior"
+}
+headers = {
+    "Authorization": "Bearer <your_enterprise_api_key>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "file_name": "<your_file_name>",
+    "tool": "edit",
+    "action": "material",
+    "mask": "<base64-encoded-mask-data>",
+    "material": "marble",
+    "field": "interior"
+}
+
+response = requests.post(url, headers=headers, params=params, json=payload)
+
+if response.status_code == 200:
+    data = response.json()
+    render_id = data["data"]["render_id"]
+    print(f"Edit request submitted. Render ID: {render_id}")
+else:
+    print(f"Edit request failed: {response.text}")
+```
+
+##### Edit Materials
+
+`pine`, `oak`, `walnut`, `marble`, `granite`, `limestone`, `leather`, `fabrics`, `carpet`, `paint`, `plaster`, `wallpaper`, `brick`, `unglazed-tiles`, `glazed-tiles`, `mirror`, `clear-glass`, `frosted-glass`, `steel`, `bronze`, `aluminum`, `polished-concrete`, `exposed-concrete`, `stone-veneer`
+
+##### Edit Object Categories
+
+| Field    | Categories (use in `object.category`)                     |
+| -------- | --------------------------------------------------------- |
+| interior | `furniture`, `decoration`, `creature`                     |
+| exterior | `street_landscape`, `street_furniture`, `street_creature` |
+
+##### Edit Object Names (Interior)
+
+| Category   | Names (use in `object.name`)                                                                    |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| furniture  | `sofa`, `table`, `chair`, `cabinet`, `shelves`, `kitchen-island`, `desk`, `bed`                 |
+| decoration | `painting`, `wall-clock`, `book`, `bottle`, `fruit`, `potted-plant`, `vase-with-flower`, `lamp` |
+| creature   | `child`, `standing-man`, `sitting-man`, `standing-woman`, `sitting-woman`, `dog`, `cat`         |
+
+##### Edit Object Names (Exterior)
+
+| Category         | Names (use in `object.name`)                                                                                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| street_landscape | `tree`, `bush`, `potted-plant`, `flower`, `grass`, `bunch-of-rocks`, `pond`                                                                                        |
+| street_furniture | `car`, `scooter`, `bicycle`, `a-urban-tree`, `a-urban-seating-unit`, `a-public-bench`, `a-picnic-table`, `a-street-lamp`, `a-public-sculpture`, `a-water-fountain` |
+| street_creature  | `one-people`, `one-child`, `one-old-people`, `one-sitting-people-on-an-object`, `a-group-of-people`, `dog`, `cat`, `bird`                                          |
+
+#### 2.7 Shared Field Options
 
 This section organizes the available options for both interior and exterior rendering fields.
 
-##### 2.4.1 Interior Options
+##### 2.7.1 Interior Options
 
 <a id="interior-type"></a>
 
@@ -446,7 +807,7 @@ This section organizes the available options for both interior and exterior rend
 | `coastal-neutrals`       | Beach-inspired light colors            |
 | `ecletic-boho`           | Mix of bright, diverse colors          |
 
-##### 2.4.2 Exterior Options
+##### 2.7.2 Exterior Options
 
 <a id="exterior-type"></a>
 
@@ -577,7 +938,7 @@ This section organizes the available options for both interior and exterior rend
 
 <a id="exterior-material"></a>
 
-##### Exterior Material Options
+##### Architectural Materials
 
 | Option     | Description                    |
 | ---------- | ------------------------------ |
@@ -592,7 +953,7 @@ This section organizes the available options for both interior and exterior rend
 | `gypsum`   | Mineral-based wall material    |
 | `plastic`  | Synthetic polymer material     |
 
-##### 2.4.3 Shared Options
+##### 2.7.3 Shared Options
 
 <a id="daylight"></a>
 
@@ -626,7 +987,7 @@ This section organizes the available options for both interior and exterior rend
 | `balanced` | Moderate changes while maintaining original structure |
 | `creative` | More significant artistic interpretation              |
 
-#### 2.5 Submit Upscale Request
+#### 2.8 Upscale Image
 
 **Endpoint:** `POST /api/enterprise/upscale`
 
@@ -747,6 +1108,55 @@ else:
 | 401         | "Unauthorized"                                                                                                                                        |
 | 500         | "Image processing failed"                                                                                                                             |
 
+**Empty Room Response Format:**
+
+```json
+{
+  "_id": "<render_id>",
+  "uid": "<user_id>",
+  "source": "<s3_url>",
+  "field": "<field>",
+  "status": "painted",
+  "outputs": ["<s3_url_1>"],
+  "created_at": "<date>",
+  "updated_at": "<date>"
+}
+```
+
+**Virtual Staging Response Format:**
+
+```json
+{
+  "_id": "<render_id>",
+  "uid": "<user_id>",
+  "source": "<s3_url>",
+  "field": "<field>",
+  "status": "painted",
+  "outputs": ["<s3_url_1>"],
+  "reference_file_urls": ["<s3_url_ref1>", "<s3_url_ref2>"],
+  "created_at": "<date>",
+  "updated_at": "<date>"
+}
+```
+
+**Edit Image Response Format (action=prompt):**
+
+```json
+{
+  "_id": "<render_id>",
+  "uid": "<user_id>",
+  "source": "<s3_url>",
+  "field": "<field>",
+  "tool": "edit",
+  "action": "<action>",
+  "prompt": "<prompt>",
+  "status": "<status>",
+  "outputs": ["<s3_url_1>"],
+  "created_at": "<date>",
+  "updated_at": "<date>"
+}
+```
+
 ### 4. Check Render Status
 
 - **Endpoint:** `GET /api/enterprise/render/<render_id>`
@@ -780,10 +1190,10 @@ The response format varies based on the render type (interior or exterior). Both
   "daylight": "<daylight>",
   "season": "<season>",
   "color": "<color>",
+  "architectural_material": "<architectural_material>",
   "creativity": "<creativity>",
   "creativity_level": 0.7,
   "prompt": "<prompt>",
-  "room_id": "<room_id>",
   "status": "<status>",
   "outputs": ["<s3_url_1>"],
   "created_at": "<date>",
@@ -805,11 +1215,10 @@ The response format varies based on the render type (interior or exterior). Both
   "sky": "<sky>",
   "season": "<season>",
   "landscape": "<landscape>",
-  "material": "<material>",
+  "architectural_material": "<architectural_material>",
   "creativity": "<creativity>",
   "creativity_level": 0.7,
   "prompt": "<prompt>",
-  "room_id": "<room_id>",
   "status": "<status>",
   "outputs": ["<s3_url_1>"],
   "created_at": "<date>",
@@ -817,7 +1226,7 @@ The response format varies based on the render type (interior or exterior). Both
 }
 ```
 
-**Sketch Render Response Format:**
+**Sketch Response Format:**
 
 ```json
 {
@@ -828,7 +1237,6 @@ The response format varies based on the render type (interior or exterior). Both
   "style": "<style>",
   "view": "<view>",
   "prompt": "<prompt>",
-  "room_id": "<room_id>",
   "status": "<status>",
   "outputs": ["<s3_url_1>"],
   "created_at": "<date>",
@@ -845,7 +1253,6 @@ The response format varies based on the render type (interior or exterior). Both
     "_id": "<render_id>",
     "uid": "<user_id>",
     "source": "<s3_url>",
-    "room_id": "<room_id>",
     "status": "<status>",
     "outputs": ["<s3_url_1>"],
     "created_at": "<date>",
