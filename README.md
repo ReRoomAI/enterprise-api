@@ -561,7 +561,7 @@ Use these parameters when specifying `tool=edit` in the request body.
 | `tool`      | string | Yes      | The tool to use for rendering                | Must be "edit"                                           |
 | `action`    | string | Yes      | The type of edit to perform                  | Must be one of: "object", "remove", "material", "prompt" |
 | `mask`      | string | Yes      | Base64-encoded mask image data               | Valid base64 string representing the mask                |
-| `field`     | string | Yes      | Type of space to edit                        | Must be "interior" or "exterior"                         |
+| `field`     | string | No       | Type of space to edit                        | Must be "interior" or "exterior". Defaults to "interior" |
 
 \*Either `file_name` or `file_url` must be provided.
 
