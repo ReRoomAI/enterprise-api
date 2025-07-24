@@ -813,37 +813,53 @@ This section organizes the available options for both interior and exterior rend
 
 ##### Exterior Type Options
 
-| Option                | Description               |
-| --------------------- | ------------------------- |
-| `no-type`             | No specific building type |
-| `single-family-home`  | Single Family Home        |
-| `townhouse`           | Townhouse                 |
-| `condominium`         | Condominium               |
-| `apartment-complex`   | Apartment Complex         |
-| `office-building`     | Office Building           |
-| `bank`                | Bank                      |
-| `shopping-mall`       | Shopping Mall             |
-| `hotel`               | Hotel                     |
-| `retail-store`        | Retail Store              |
-| `restaurant`          | Restaurant                |
-| `school`              | School                    |
-| `university`          | University                |
-| `hospital`            | Hospital                  |
-| `library`             | Library                   |
-| `police-station`      | Police Station            |
-| `courthouse`          | Courthouse                |
-| `sports-arena`        | Sports Arena              |
-| `concert-hall`        | Concert Hall              |
-| `theater`             | Theater                   |
-| `museum`              | Museum                    |
-| `airport-terminal`    | Airport Terminal          |
-| `bus-station`         | Bus Station               |
-| `subway-station`      | Subway Station            |
-| `train-station`       | Train Station             |
-| `swimming-pool`       | Swimming Pool             |
-| `resort`              | Resort                    |
-| `greenhouse`          | Greenhouse                |
-| `distribution-center` | Distribution Center       |
+| Option                   | Description               |
+| ------------------------ | ------------------------- |
+| `no-type`                | No specific building type |
+| `single-family-home`     | Single Family Home        |
+| `apartment-complex`      | Apartment Complex         |
+| `townhouse`              | Townhouse                 |
+| `condominium`            | Condominium               |
+| `co-housing-community`   | Co-Housing Community      |
+| `office-building`        | Office Building           |
+| `retail-store`           | Retail Store              |
+| `shopping-mall`          | Shopping Mall             |
+| `restaurant`             | Restaurant                |
+| `bank`                   | Bank                      |
+| `factory`                | Factory                   |
+| `warehouse`              | Warehouse                 |
+| `distribution-center`    | Distribution Center       |
+| `power-plant`            | Power Plant               |
+| `data-center`            | Data Center               |
+| `school`                 | School                    |
+| `university`             | University                |
+| `hospital`               | Hospital                  |
+| `courthouse`             | Courthouse                |
+| `police-station`         | Police Station            |
+| `sports-arena`           | Sports Arena              |
+| `theater`                | Theater                   |
+| `concert-hall`           | Concert Hall              |
+| `amusement-park`         | Amusement Park            |
+| `swimming-pool`          | Swimming Pool             |
+| `barn`                   | Barn                      |
+| `silo`                   | Silo                      |
+| `greenhouse`             | Greenhouse                |
+| `animal-shelter`         | Animal Shelter            |
+| `farmhouse`              | Farmhouse                 |
+| `airport-terminal`       | Airport Terminal          |
+| `train-station`          | Train Station             |
+| `bus-station`            | Bus Station               |
+| `parking-garage`         | Parking Garage            |
+| `subway-station`         | Subway Station            |
+| `hotel`                  | Hotel                     |
+| `motel`                  | Motel                     |
+| `bed-and-breakfast`      | Bed and Breakfast         |
+| `resort`                 | Resort                    |
+| `hostel`                 | Hostel                    |
+| `museum`                 | Museum                    |
+| `art-gallery`            | Art Gallery               |
+| `library`                | Library                   |
+| `performing-arts-center` | Performing Arts Center    |
 
 <a id="exterior-style"></a>
 
